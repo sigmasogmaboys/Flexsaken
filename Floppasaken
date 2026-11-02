@@ -1,0 +1,125 @@
+if workspace.DistributedGameTime < 4 then
+    task.wait(4 - workspace.DistributedGameTime)
+end
+
+local CoreGui = game:GetService("CoreGui")
+if CoreGui:FindFirstChild("FluxSaken") then return warn("Script already running") end
+if not (game.GameId == 6331902150 or game.GameId == 7464167604 or workspace:GetAttribute("ServerType")) then
+    return warn("Incorrect game")
+end
+
+do
+    local ValidKey = "Flex-By-Pichigdasos-And-Nol1-1831"
+    local Passed = false
+    local OldKeyGui = CoreGui:FindFirstChild("FlexKeySystem")
+    if OldKeyGui then OldKeyGui:Destroy() end
+    local KeyGui = Instance.new("ScreenGui")
+    KeyGui.Name = "FlexKeySystem"
+    KeyGui.ResetOnSpawn = false
+    KeyGui.DisplayOrder = 1000
+    KeyGui.IgnoreGuiInset = true
+    KeyGui.Parent = CoreGui
+
+    local Frame = Instance.new("Frame")
+    Frame.Size = UDim2.fromOffset(340, 230)
+    Frame.Position = UDim2.new(0.5, -170, 0.5, -115)
+    Frame.BackgroundColor3 = Color3.fromRGB(30, 12, 52)
+    Frame.BorderSizePixel = 0
+    Frame.Parent = KeyGui
+    Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 14)
+    local Stroke = Instance.new("UIStroke")
+    Stroke.Color = Color3.fromRGB(200, 110, 255)
+    Stroke.Thickness = 2
+    Stroke.Parent = Frame
+
+    local Title = Instance.new("TextLabel")
+    Title.Size = UDim2.new(1, -20, 0, 40)
+    Title.Position = UDim2.new(0, 10, 0, 10)
+    Title.BackgroundTransparency = 1
+    Title.Text = "FlexSaken Key System"
+    Title.Font = Enum.Font.GothamBold
+    Title.TextSize = 20
+    Title.TextColor3 = Color3.fromRGB(245, 235, 255)
+    Title.Parent = Frame
+
+    local Input = Instance.new("TextBox")
+    Input.Size = UDim2.new(1, -40, 0, 42)
+    Input.Position = UDim2.new(0, 20, 0, 70)
+    Input.BackgroundColor3 = Color3.fromRGB(22, 8, 40)
+    Input.TextColor3 = Color3.fromRGB(245, 235, 255)
+    Input.PlaceholderText = "Enter key"
+    Input.PlaceholderColor3 = Color3.fromRGB(170, 130, 210)
+    Input.Text = ""
+    Input.ClearTextOnFocus = false
+    Input.Font = Enum.Font.Gotham
+    Input.TextSize = 16
+    Input.Parent = Frame
+    Instance.new("UICorner", Input).CornerRadius = UDim.new(0, 8)
+
+    local Status = Instance.new("TextLabel")
+    Status.Size = UDim2.new(1, -40, 0, 22)
+    Status.Position = UDim2.new(0, 20, 0, 120)
+    Status.BackgroundTransparency = 1
+    Status.Text = ""
+    Status.Font = Enum.Font.Gotham
+    Status.TextSize = 14
+    Status.TextColor3 = Color3.fromRGB(255, 120, 160)
+    Status.Parent = Frame
+
+    local Verify = Instance.new("TextButton")
+    Verify.Size = UDim2.new(1, -40, 0, 42)
+    Verify.Position = UDim2.new(0, 20, 0, 160)
+    Verify.BackgroundColor3 = Color3.fromRGB(120, 40, 200)
+    Verify.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Verify.Text = "Verify"
+    Verify.Font = Enum.Font.GothamBold
+    Verify.TextSize = 18
+    Verify.AutoButtonColor = true
+    Verify.Parent = Frame
+    Instance.new("UICorner", Verify).CornerRadius = UDim.new(0, 8)
+
+    local function TryKey()
+        local Typed = string.gsub(Input.Text, "^%s*(.-)%s*$", "%1")
+        if Typed == ValidKey then
+            Passed = true
+            KeyGui:Destroy()
+        else
+            Status.Text = "Invalid key"
+        end
+    end
+    Verify.Activated:Connect(TryKey)
+    Input.FocusLost:Connect(function(EnterPressed)
+        if EnterPressed then TryKey() end
+    end)
+
+    repeat task.wait(0.1) until Passed or not KeyGui.Parent
+    if not Passed then return end
+    Instance.new("BoolValue", CoreGui).Name = "FluxSaken"
+end
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local HttpService = game:GetService("HttpService")
+local Lighting = game:GetService("Lighting")
+local TextChatService = game:GetService("TextChatService")
+local TeleportService = game:GetService("TeleportService")
+local SoundService = game:GetService("SoundService")
+local LocalPlayer = Players.LocalPlayer
+
+LocalPlayer.Idled:Connect(function()
+    game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
+
+local Version = "1.1"
+local OfficialGame = game.GameId == 6331902150 or game.GameId == 7464167604 or game.GameId == 7919224306
+local PlayerGui = LocalPlayer:FindFirstChildOfClass("PlayerGui") or LocalPlayer:WaitForChild("PlayerGui", 20)
+local PlayersFolder = workspace:FindFirstChild("Players") or workspace:WaitForChild("Players", 10)
+local KillersFolder = PlayersFolder and PlayersFolder:FindFirstChild("Killers")
+local SurvivorsFolder = PlayersFolder and PlayersFolder:FindFirstChild("Survivors")
+local AssetsFolder = ReplicatedStorage:FindFirstChild("Assets") or ReplicatedStorage:WaitForChild("Assets", 3)
+local SurvivorAssets = AssetsFolder and AssetsFolder:FindFirstChild("Survivors")
+local ModulesFolder = ReplicatedStorage:FindFirstChild("Modules")
+local NetworkModule = ModulesFolder and ModulesFolder:FindFirstChild("Network", true)
+local NetworkFolder = NetworkModule and (Netwo
